@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #e5dfc4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+img {
+    position: absolute;
+    bottom: -60%;
+    transition: bottom 10s ease;
+    z-index: 10;
+}
+
+.show {
+    bottom: 0px;
+}
+
+audio {
+    z-index: 20;
+}
