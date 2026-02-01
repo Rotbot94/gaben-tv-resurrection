@@ -31,6 +31,7 @@ body {
 }
 
 #play-button {
+    margin-bottom: 5px;
     position: relative;
     width: 50px;
     z-index: 1;
@@ -43,14 +44,25 @@ body {
 }
 
 #mute-button {
+    margin-top: 5px;
     position: relative;
     width: 35px;
     z-index: 1;
     fill: black;
     cursor: pointer;
+
     &:hover {
         fill: #e5dfc4;
     }
+}
+
+#restart-button {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    position: relative;
+    width: 35px;
+    z-index: 1;
+    cursor: pointer;
 }
 
 canvas {

@@ -2,7 +2,7 @@
 const gabenImg = document.getElementById("gaben");
 const startButton = document.getElementById("start-button");
 const buttonGroup = document.getElementById("button-group");
-const playButton = document.getElementById("play-button");
+const restartButton = document.getElementById("restart-button");
 const muteButtonContainer = document.getElementById("mute-button-container");
 const playButtonContainer = document.getElementById("play-button-container");
 const audio = document.getElementById("music");
@@ -101,6 +101,9 @@ function resetState() {
   cancelAnimationFrame(animationId);
   resetTimer();
 
+  audio.pause();
+  audio.currentTime = 0;
+
   isPlaying = false;
 
   document.body.style.backgroundColor = "black";
@@ -171,6 +174,27 @@ muteButtonContainer.addEventListener("click", () => {
   isMuted = !isMuted;
   audio.muted = isMuted;
   muteButtonContainer.innerHTML = isMuted ? mutedSvg : unmutedSvg;
+});
+
+restartButton.addEventListener("click", () => {
+  clearInterval(timer);
+  seconds = 0;
+
+  audio.pause();
+  audio.currentTime = 0;
+
+  gabenImg.style.transition = "";
+  gabenImg.classList.remove("show");
+  gabenImg.classList.add("hidden");
+
+  audio.play();
+
+  // Gaben rises
+  setTimeout(() => {
+    gabenImg.classList.remove("hidden");
+    gabenImg.classList.add("show");
+    startTimer();
+  }, 2000);
 });
 
 window.addEventListener("resize", resizeCanvas);
