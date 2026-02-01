@@ -2,29 +2,77 @@ body {
     margin: 0;
     height: 100vh;
     overflow: hidden;
-    background-color: #e5dfc4;
+    background-color: black;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#start-button {
+    z-index: 1;
+    fill: lightgrey;
+    width: 150px;
+}
+
+#button-group {
+    position: absolute;
+    background-color: #e5dfc4;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    z-index: 1;
+    border-radius: 8px;
+    border: solid 1px black;
+}
+
+#stop-button {
+    position: relative;
+    width: 50px;
+    z-index: 1;
+    fill: black;
+    cursor: pointer;
+
+    &:hover {
+        fill: #e5dfc4;
+    }
+}
+
+#mute-button {
+    position: relative;
+    width: 35px;
+    z-index: 1;
+    fill: black;
+    cursor: pointer;
+    &:hover {
+        fill: #e5dfc4;
+    }
 }
 
 canvas {
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 0;
 }
 
-img {
-    position: absolute;
-    bottom: -60%;
-    transition: bottom 10s ease;
-    z-index: 10;
+#gaben {
+    position: fixed;
+    z-index: 1;
+    height: 60vh;
+    width: auto;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.show {
+#gaben.show {
+    transition: bottom 15s ease;
     bottom: 0px;
 }
 
-audio {
-    z-index: 20;
+#gaben.hidden {
+    bottom: -100% !important;
 }
