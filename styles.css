@@ -11,6 +11,7 @@ body {
 #start-button {
     z-index: 1;
     fill: lightgrey;
+    cursor: pointer;
     width: 150px;
 }
 
@@ -29,7 +30,7 @@ body {
     border: solid 1px black;
 }
 
-#stop-button {
+#play-button {
     position: relative;
     width: 50px;
     z-index: 1;
