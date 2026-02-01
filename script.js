@@ -1,12 +1,23 @@
-// DOM elements
+// DOM elements - Media
 const gabenImg = document.getElementById("gaben");
+const audio = document.getElementById("music");
+let isPlaying = false;
+let isMuted = false;
+let timer;
+let seconds = 0;
+
+// DOM elements - Buttons
 const startButton = document.getElementById("start-button");
 const buttonGroup = document.getElementById("button-group");
 const restartButton = document.getElementById("restart-button");
 const muteButtonContainer = document.getElementById("mute-button-container");
 const playButtonContainer = document.getElementById("play-button-container");
-const audio = document.getElementById("music");
 
+// DOM elements - Discount rain
+const rainContainer = document.getElementById("rain-container");
+let rainItemsCount = 0;
+
+// DOM elements - Icon SVGs
 const unmutedSvg = `<svg id="mute-button" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z" />
                 </svg>`;
@@ -28,9 +39,6 @@ const stopSvg = `<svg id="play-button" xmlns="http://www.w3.org/2000/svg" fill="
                     d="M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z" />
             </svg>`;
 
-let isPlaying = false;
-let isMuted = false;
-
 // Sunburst background animation variables
 const canvas = document.getElementById("sunburstCanvas");
 const ctx = canvas.getContext("2d");
@@ -40,8 +48,6 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 let angleOffset = 0;
 let animationId;
-let timer = 0;
-let seconds = 0;
 
 function drawWedge(angle, color) {
   const radius = Math.sqrt(
@@ -118,6 +124,49 @@ function resetState() {
   gabenImg.classList.add("hidden");
 }
 
+function createRainItem() {
+  const discountPercentages = ["90", "75", "66", "50", "40", "33", "25", "15"];
+  const fontSizes = ["1rem", "2rem", "2rem", "3rem", "3rem"];
+  const rainElement = document.createElement("div");
+  rainElement.classList.add("discount");
+
+  const randomDiscoutPercentageIndex = Math.floor(
+    Math.random() * discountPercentages.length,
+  );
+  const randomDuration = Math.random() * 3 + 2;
+  const randomFontSizeIndex = Math.floor(Math.random() * fontSizes.length);
+
+  rainElement.style.position = "absolute";
+  rainElement.style.zIndex = 1;
+  rainElement.style.left = `${Math.random() * 100}vw`;
+  rainElement.textContent = `- ${discountPercentages[randomDiscoutPercentageIndex]}%`;
+  rainElement.style.animationDuration = `${randomDuration}s`;
+  rainElement.style.fontSize = fontSizes[randomFontSizeIndex];
+
+  // Remove the element after animation ends
+  rainElement.addEventListener("animationend", () => {
+    rainElement.remove();
+    rainItemsCount--;
+
+    if (isPlaying && rainItemsCount <= 25) {
+      createRainItem();
+    }
+  });
+
+  rainContainer.appendChild(rainElement);
+  rainItemsCount++;
+}
+
+function startDiscountRain() {
+  // Clear any existing rain elements
+  rainContainer.innerHTML = "";
+  rainItemsCount = 0;
+
+  for (let i = 0; i < 25; i++) {
+    setTimeout(createRainItem, i * 500);
+  }
+}
+
 startButton.addEventListener("click", () => {
   isPlaying = true;
 
@@ -128,6 +177,8 @@ startButton.addEventListener("click", () => {
 
   // Set background color;
   document.body.style.backgroundColor = "#e5dfc4";
+
+  startDiscountRain();
 
   // Audio
   audio.play();
@@ -166,6 +217,7 @@ playButtonContainer.addEventListener("click", () => {
     isPlaying = true;
     audio.play();
     startTimer();
+    startDiscountRain();
     animationId = requestAnimationFrame(animate);
   }
 });
