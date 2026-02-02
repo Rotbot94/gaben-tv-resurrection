@@ -6,3 +6,17 @@ body {
     justify-content: start;
     font-family: 'Motiva Sans', sans-serif;
 }
+
+footer {
+    z-index: 1;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+
+    a {
+        background-color: #4c6b22;
+        color: #BEEE11;
+        padding: 3px;
+        text-decoration: none;
+    }
+}

@@ -11,6 +11,28 @@ body {
     font-family: 'Motiva Sans', sans-serif;
 }
 
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    filter: blur(5px);
+}
+
+footer {
+    z-index: 1;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+
+    a {
+        background-color: #4c6b22;
+        color: #BEEE11;
+        padding: 3px;
+        text-decoration: none;
+    }
+}
+
 #start-button {
     z-index: 1;
     fill: lightgrey;
@@ -66,15 +88,6 @@ body {
     width: 35px;
     z-index: 1;
     cursor: pointer;
-}
-
-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    filter: blur(5px);
-
 }
 
 #gaben {
